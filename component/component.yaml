@@ -1,0 +1,26 @@
+name: Get Lines
+description: Gets the specified number of lines from the input file.
+
+inputs:
+- {name: Input 1, type: String, description: 'Data for input 1'}
+- {name: Parameter 1, type: Integer, default: '100', description: 'Number of lines to copy'}
+
+outputs:
+- {name: Output 1, type: String, description: 'Output 1 data.'}
+
+implementation:
+  container:
+    # The strict name of a container image that you've pushed to a container registry.
+    image: gcr.io/erschmid-test-291318/test-kfp-component@sha256:8181e0ff66886b7ac1b4fa6e324b4347b05ab5fbce55f74aa290b0e2fda4cb50
+
+    command: [
+      python3,
+      # Path of the program inside the container
+      /pipelines/component/src/program.py,
+      --input1-path,
+      {inputPath: Input 1},
+      --param1,
+      {inputValue: Parameter 1},
+      --output1-path,
+      {outputPath: Output 1},
+    ]
